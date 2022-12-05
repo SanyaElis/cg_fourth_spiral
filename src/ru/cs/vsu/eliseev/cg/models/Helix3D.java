@@ -50,7 +50,7 @@ public class Helix3D implements IModel {
     public Helix3D(int numberOfLoops, double a, double r, double h) {
         double d = Math.sqrt(r * r + h * h);
         List<Vector3> previousVectors = new ArrayList<>();
-        for (double t = 0; t <= 2 * numberOfLoops * Math.PI; t += Math.PI / 6 ) {
+        for (double t = 0; t <= 2 * numberOfLoops * Math.PI; t += Math.PI / 24 ) {
             List<Vector3> tempVectors = new ArrayList<>();
             for (double u = 0; u <= 2 * Math.PI; u += 0.5) {
                 double x = h * t + (r * a * Math.sin(u)) / d;

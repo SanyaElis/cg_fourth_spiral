@@ -9,18 +9,20 @@ import ru.cs.vsu.eliseev.cg.third.PolyLine3D;
 import java.awt.*;
 import java.util.Comparator;
 import java.util.LinkedList;
+import java.util.Random;
 
 /**
  * Реализация рисователя полигонов с помощью рёбер.
  */
 public class SimpleEdgeDrawer extends ScreenGraphicsDrawer {
-
+    private Random random = new Random();
     public SimpleEdgeDrawer(ScreenConverter sc, Graphics2D g) {
         super(sc, g);
     }
-    
+
     /**
      * Рисует одну полилинию на графиксе.
+     *
      * @param polyline полилиния
      */
     @Override
@@ -39,14 +41,16 @@ public class SimpleEdgeDrawer extends ScreenGraphicsDrawer {
         /*создаём хранилище этих точек в виде двух массивов*/
         ScreenCoordinates crds = new ScreenCoordinates(points);
         /*если линия замкнута - рисуем полигон, иначе - полилинию*/
+        getGraphics().setColor(new Color(random.nextInt(255),  random.nextInt(255), random.nextInt(255)));
         if (polyline.isClosed())
-            getGraphics().drawPolygon(crds.getXx(), crds.getYy(), crds.size());//todo fill polygon
+            getGraphics().fillPolygon(crds.getXx(), crds.getYy(), crds.size());//todo fill polygon
         else
-            getGraphics().drawPolyline(crds.getXx(), crds.getYy(), crds.size());
+            getGraphics().drawPolyline(crds.getXx(), crds.getYy(), crds.size());//todo поменять приближение
     }
 
     /**
      * В данной реализации возвращаем фильтр, который одобряет все полилинии.
+     *
      * @return фильтр полилиний
      */
     @Override
@@ -61,12 +65,14 @@ public class SimpleEdgeDrawer extends ScreenGraphicsDrawer {
 
     /**
      * Сравниваем полилинии по-среднему Z.
+     *
      * @return компаратор
      */
     @Override
     protected Comparator<PolyLine3D> getComparator() {
         return new Comparator<PolyLine3D>() {
             private static final float EPSILON = 1e-10f;
+
             @Override
             public int compare(PolyLine3D o1, PolyLine3D o2) {
                 float d = o1.avgZ() - o2.avgZ();
@@ -76,5 +82,5 @@ public class SimpleEdgeDrawer extends ScreenGraphicsDrawer {
             }
         };
     }
-    
+
 }
