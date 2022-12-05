@@ -40,7 +40,7 @@ public class SimpleEdgeDrawer extends ScreenGraphicsDrawer {
         ScreenCoordinates crds = new ScreenCoordinates(points);
         /*если линия замкнута - рисуем полигон, иначе - полилинию*/
         if (polyline.isClosed())
-            getGraphics().drawPolygon(crds.getXx(), crds.getYy(), crds.size());
+            getGraphics().drawPolygon(crds.getXx(), crds.getYy(), crds.size());//todo fill polygon
         else
             getGraphics().drawPolyline(crds.getXx(), crds.getYy(), crds.size());
     }

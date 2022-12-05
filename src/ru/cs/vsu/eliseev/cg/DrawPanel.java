@@ -5,6 +5,7 @@ import ru.cs.vsu.eliseev.cg.draw.IDrawer;
 import ru.cs.vsu.eliseev.cg.draw.SimpleEdgeDrawer;
 import ru.cs.vsu.eliseev.cg.math.Vector3;
 import ru.cs.vsu.eliseev.cg.models.Helix3D;
+import ru.cs.vsu.eliseev.cg.models.HelixLine;
 import ru.cs.vsu.eliseev.cg.models.Parallelepiped;
 import ru.cs.vsu.eliseev.cg.screen.ScreenConverter;
 import ru.cs.vsu.eliseev.cg.third.Camera;
@@ -27,15 +28,16 @@ public class DrawPanel extends JPanel
         cam = new Camera();
         camController = new CameraController(cam, sc);
         scene = new Scene(Color.WHITE.getRGB());
-        scene.showAxes();
+//        scene.showAxes();
 
-        scene.getModelsList().add(new Parallelepiped(
-                new Vector3(-0.4f, -0.4f, -0.4f),
-                new Vector3(0.4f, 0.4f, 0.4f)
-        ));
+//        scene.getModelsList().add(new Parallelepiped(
+//                new Vector3(-0.4f, -0.4f, -0.4f),
+//                new Vector3(0.4f, 0.4f, 0.4f)
+//        ));
+
 //        scene.getModelsList().add(
 //                new HelixLine(0.01f, 0.01f, 0, 100 * (float) Math.PI));
-//        scene.getModelsList().add(
+        //scene.getModelsList().add(
 //                new Helix3D());
 //        scene.getModelsList().add(new
 //                Helix3D(1f, 1f, 1f, 2 * (float) Math.PI));
