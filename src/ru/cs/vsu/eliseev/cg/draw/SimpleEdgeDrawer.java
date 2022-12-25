@@ -41,7 +41,7 @@ public class SimpleEdgeDrawer extends ScreenGraphicsDrawer {
         /*создаём хранилище этих точек в виде двух массивов*/
         ScreenCoordinates crds = new ScreenCoordinates(points);
         /*если линия замкнута - рисуем полигон, иначе - полилинию*/
-        getGraphics().setColor(new Color(random.nextInt(255),  random.nextInt(255), random.nextInt(255)));
+        getGraphics().setColor(polyline.getColor());
         if (polyline.isClosed())
             getGraphics().fillPolygon(crds.getXx(), crds.getYy(), crds.size());//todo fill polygon
         else

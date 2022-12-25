@@ -28,7 +28,7 @@ public class DrawPanel extends JPanel
         cam = new Camera();
         camController = new CameraController(cam, sc);
         scene = new Scene(Color.WHITE.getRGB());
-//        scene.showAxes();
+        scene.showAxes();
 
 //        scene.getModelsList().add(new Parallelepiped(
 //                new Vector3(-0.4f, -0.4f, -0.4f),

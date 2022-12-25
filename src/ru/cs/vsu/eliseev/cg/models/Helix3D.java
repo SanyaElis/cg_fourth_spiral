@@ -4,50 +4,62 @@ import ru.cs.vsu.eliseev.cg.math.Vector3;
 import ru.cs.vsu.eliseev.cg.third.IModel;
 import ru.cs.vsu.eliseev.cg.third.PolyLine3D;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 public class Helix3D implements IModel {
     private List<Vector3> points = new LinkedList<>();
     private List<PolyLine3D> lines = new LinkedList<>();
+    private Random random = new Random();
+    private int numberOfLoops;
+    private double a, r, h;
 
-    public Helix3D() {
-
-        for (double u = 0; u <= 2 * Math.PI; u += 0.05) {
-            for (double v = -Math.PI; v <= Math.PI; v += 0.05) {
-                double x = Math.cos(u) * (Math.cos(v) + 3);
-                double y = Math.sin(u) * (Math.cos(v) + 3);
-                double z = Math.sin(v) + u;
-                points.add(new Vector3((float) x, (float) y, (float) z));
-            }
-        }
+    public void recalculateLines(int numberOfLoops, double a, double r, double h){
+        this.numberOfLoops = numberOfLoops;
+        this.a = a;
+        this.r = r;
+        this.h = h;
+        calculateLines(numberOfLoops, a, r, h);
     }
 
-    public Helix3D(float a, float radius, float thickness, float w) {
-        for (double u = 0; u <= 2 * Math.PI; u += 0.05) {
-            for (double v = -Math.PI; v <= Math.PI; v += 0.05) {
-                double x = Math.cos(u) * (thickness * Math.cos(v) + radius);
-                double y = Math.sin(u) * (thickness * Math.cos(v) + radius);
-                double z = Math.sin(v) + a * u;
-                points.add(new Vector3((float) x, (float) y, (float) z));
-            }
-        }
+    public void recalculateLines(double a, double r, double h){
+        this.a = a;
+        this.r = r;
+        this.h = h;
+        calculateLines(numberOfLoops, a, r, h);
     }
 
-//    public Helix3D(int numberOfLoops, double a, double r, double h) {
-//        double d = Math.sqrt(r * r + h * h);
-//        for (double t = 0; t <= 2 * numberOfLoops * Math.PI; t += Math.PI / 12) {
-//            for (double u = 0; u <= 2 * Math.PI; u += 0.03) {
-//                double x = h * t + (r * a * Math.sin(u)) / d;
-//                double y = r * Math.cos(t) - a * Math.cos(t) * Math.cos(u) + (h * a * Math.sin(t) * Math.sin(u)) / d;
-//                double z = r * Math.sin(t) - a * Math.sin(t) * Math.cos(u) - (h * a * Math.cos(t) * Math.sin(u)) / d;
-//                points.add(new Vector3((float) x, (float) y, (float) z));
-//            }
-//        }
-//    }
+    public void recalculateLines(int numberOfLoops, double r, double h){
+        this.numberOfLoops = numberOfLoops;
+        this.r = r;
+        this.h = h;
+        calculateLines(numberOfLoops, a, r, h);
+    }
+    public void recalculateLines(int numberOfLoops, double a){
+        this.numberOfLoops = numberOfLoops;
+        this.a = a;
+        calculateLines(numberOfLoops, a, r, h);
+    }
+    public void recalculateLines(int numberOfLoops){
+        calculateLines(numberOfLoops, a, r, h);
+    }
+    public void recalculateLines(double h){
+        calculateLines(numberOfLoops, a, r, h);
+    }
 
     public Helix3D(int numberOfLoops, double a, double r, double h) {
+        this.numberOfLoops = numberOfLoops;
+        this.a = a;
+        this.r = r;
+        this.h = h;
+        calculateLines(numberOfLoops, a, r, h);
+    }
+    private void calculateLines(int numberOfLoops, double a, double r, double h){
+        lines = new LinkedList<>();
+        points = new LinkedList<>();
         double d = Math.sqrt(r * r + h * h);
         List<Vector3> previousVectors = new ArrayList<>();
         for (double t = 0; t <= 2 * numberOfLoops * Math.PI; t += Math.PI / 24 ) {
@@ -73,14 +85,15 @@ public class Helix3D implements IModel {
                     secondTriangle.add(tempVectors.get(i));
                     secondTriangle.add(tempVectors.get(next));
                     secondTriangle.add(previousVectors.get(next));
-                    lines.add(new PolyLine3D(firstTriangle, true));
-                    lines.add(new PolyLine3D(secondTriangle, true));
+                    Color color1 = new Color(random.nextInt(255),  random.nextInt(255), random.nextInt(255));
+                    Color color2 = new Color(random.nextInt(255),  random.nextInt(255), random.nextInt(255));
+                    lines.add(new PolyLine3D(firstTriangle, true, color1));
+                    lines.add(new PolyLine3D(secondTriangle, true, color2));
                 }
             }
             previousVectors = tempVectors;
         }
     }
-
     @Override
     public List<PolyLine3D> getLines() {
         if (lines.size() == 0){

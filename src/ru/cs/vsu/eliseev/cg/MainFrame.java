@@ -4,8 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MainFrame extends JFrame {
+
     private final DrawPanel dp = new DrawPanel();
     private final JScrollPane buttons = new JScrollPane();
+    private JPanel maimPanel;
+
     public MainFrame()  {
 //        this.pack();
         this.setTitle("Спираль");
@@ -17,6 +20,7 @@ public class MainFrame extends JFrame {
         buttons.add(actionButton);
         JTextPane tp = new JTextPane();
         tp.setSize(30,30);
+        tp.setLocation(800, 600);
         buttons.add(tp);
         this.add(buttons, BorderLayout.AFTER_LAST_LINE);
     }
