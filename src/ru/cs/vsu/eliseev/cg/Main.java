@@ -1,6 +1,7 @@
 package ru.cs.vsu.eliseev.cg;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class Main {
 
@@ -10,5 +11,8 @@ public class Main {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.add(new DrawPanel());
         frame.setVisible(true);
+        frame.add(new Button());
+//        MainFrame myFrame = new MainFrame();
+
     }
 }
